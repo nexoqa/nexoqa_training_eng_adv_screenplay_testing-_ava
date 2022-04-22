@@ -25,7 +25,7 @@ public class ChooseATitle implements Interaction {
     @Override
     public <T extends Actor> void performAs(T actor) {
         Target selectedTitle = getTitleById().get(title.getId() - 1);
-        actor.attemptsTo(WaitUntil.the(selectedTitle, isCurrentlyEnabled()).forNoMoreThan(10).seconds());
+        actor.attemptsTo(WaitUntil.the(selectedTitle, isCurrentlyEnabled()).forNoMoreThan(30).seconds());
         actor.attemptsTo(Click.on(selectedTitle));
     }
 

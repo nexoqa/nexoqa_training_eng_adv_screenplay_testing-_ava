@@ -8,16 +8,16 @@ import net.thucydides.core.annotations.Step;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
-public class NavigateTo implements Task {
+public class GoHome implements Task {
 
     @Override
     @Step("{0} go to authentication page")
     public <T extends Actor> void performAs(T actor) {
-        actor.attemptsTo(HeaderMenu.navigateToSingIn());
+        actor.attemptsTo(MyAccountOption.navigateToHome());
     }
 
-    public static NavigateTo SignInSection() {
-        return instrumented(NavigateTo.class);
+    public static GoHome action() {
+        return instrumented(GoHome.class);
     }
 
 

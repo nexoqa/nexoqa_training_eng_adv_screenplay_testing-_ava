@@ -9,8 +9,9 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 import net.thucydides.core.annotations.Step;
 
-import static com.nexoqa.automationframework.ui.CreateAccountPage.MOBILE_PHONE;
+import static com.nexoqa.automationframework.ui.MyAccountPage.HOME;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isCurrentlyEnabled;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isNotCurrentlyEnabled;
 
 public class SignIn implements Task {
@@ -26,7 +27,7 @@ public class SignIn implements Task {
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(CreateAccountForm.fillWith(clientData.getCredentials().getEmail()));
         actor.attemptsTo(SigInForm.fillWith(clientData));
-        actor.attemptsTo(WaitUntil.the(MOBILE_PHONE, isNotCurrentlyEnabled()));
+        actor.attemptsTo(WaitUntil.the(HOME, isCurrentlyEnabled()));
     }
 
     public static SignIn createNewAccountAs(ClientData clientData) {

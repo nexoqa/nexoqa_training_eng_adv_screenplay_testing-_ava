@@ -1,5 +1,6 @@
 package com.nexoqa.automationframework.steps;
 
+import com.nexoqa.automationframework.ability.PermissionLogIn;
 import com.nexoqa.automationframework.model.ClientData;
 import com.nexoqa.automationframework.model.Credentials;
 import com.nexoqa.automationframework.model.builder.ClientBuilder;
@@ -10,10 +11,8 @@ import com.nexoqa.automationframework.task.GoTo;
 import com.nexoqa.automationframework.task.Login;
 import com.nexoqa.automationframework.task.NavigateTo;
 import com.nexoqa.automationframework.task.SignIn;
-import cucumber.api.java.en.But;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import com.nexoqa.automationframework.ability.PermissionCreateAccount;
+import cucumber.api.java.en.*;
 import net.serenitybdd.screenplay.Actor;
 
 import static com.nexoqa.automationframework.task.Logout.closeSession;
@@ -34,6 +33,12 @@ public class SingInSteps {
         credentials = new CredentialsBuilder(actor).build();
         clientData = new ClientBuilder(actor, credentials).build();
 
+        if(actor.getName().equals("Rafa")) {
+            actor.whoCan(PermissionCreateAccount.with(clientData));
+//            actor.whoCan(PermissionLogIn.with(credentials));
+        }
+
+
         actor.wasAbleTo(
                 GoTo.eCommerce(),
                 NavigateTo.SignInSection(),
@@ -51,7 +56,15 @@ public class SingInSteps {
 
     @Given("^that (Fran|Saul|Rafa) isn't registered in the ecommerce$")
     public void theClientIsNotRegisteredAtThePlatform(String actorName) {
-        credentials = new CredentialsBuilder(theActorCalled(actorName)).build();
+        Actor actor = theActorCalled(actorName);
+
+        credentials = new CredentialsBuilder(actor).build();
+        clientData = new ClientBuilder(actor, credentials).build();
+
+        if(actor.getName().equals("Fran")) {
+            actor.whoCan(PermissionLogIn.with(credentials));
+        }
+
         theActorInTheSpotlight().attemptsTo(
                 GoTo.eCommerce());
     }
