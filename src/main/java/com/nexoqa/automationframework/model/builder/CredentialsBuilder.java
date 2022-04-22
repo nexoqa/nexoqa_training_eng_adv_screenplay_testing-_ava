@@ -12,6 +12,7 @@ public class CredentialsBuilder extends BaseBuilder {
 
     public Credentials build() {
         return new Credentials(
+                this.actor,
                 generateEmail(actor.getName()),
                 generatePassword()
         );

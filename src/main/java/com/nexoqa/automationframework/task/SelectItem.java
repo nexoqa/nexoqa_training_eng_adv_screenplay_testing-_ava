@@ -3,6 +3,8 @@ package com.nexoqa.automationframework.task;
 import com.nexoqa.automationframework.interaction.AddToCart;
 import com.nexoqa.automationframework.interaction.MouseOverItem;
 import com.nexoqa.automationframework.interaction.ProceedToCheckout;
+import com.nexoqa.automationframework.interaction.SummaryProceedToCheckout;
+
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 
@@ -15,6 +17,7 @@ public class SelectItem implements Task {
         actor.attemptsTo(MouseOverItem.called());
         actor.attemptsTo(AddToCart.called());
         actor.attemptsTo(ProceedToCheckout.called());
+        actor.attemptsTo(SummaryProceedToCheckout.called());
     }
 
     public static SelectItem SelectNewItem() {

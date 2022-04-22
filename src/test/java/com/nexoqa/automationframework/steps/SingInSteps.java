@@ -9,6 +9,9 @@ import com.nexoqa.automationframework.questions.ECommerce;
 import com.nexoqa.automationframework.questions.LogIn;
 import com.nexoqa.automationframework.questions.ShoppingCartSummaryPageSuccess;
 import com.nexoqa.automationframework.task.*;
+import com.nexoqa.automationframework.questions.Summary;
+
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.But;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -93,9 +96,39 @@ public class SingInSteps {
     @Then("^(?:he|she) should be in the shopping cart summary page$")
     public void theActorShouldBeInTheCheckOutPage() {
         theActorInTheSpotlight().should(
-                seeThat("the application shows the shopping cart summary page", ECommerce.isShoppingCartSummaryPagePreset(), equalTo(true))
-        );
+                seeThat("the application shows the shopping cart summary page",
+                        ECommerce.isShoppingCartSummaryPagePreset(), equalTo(true)));
     }
+    
+    @And("^(?:he|she) has to create (?:his|her) account$")
+    public void theActorHasToCreateNewAccount() {
+        Actor actor = credentials.getActor();
+        clientData = new ClientBuilder(actor, credentials).build();
+
+        actor.wasAbleTo(
+                SignIn.createNewAccountAs(clientData));
+    }
+
+    @And("^(?:he|she) confirms shipping address$")
+    public void theActorConfirmsShippingAddress() {
+        Actor actor = credentials.getActor();
+        actor.wasAbleTo(ConfirmShippingAddress.ProceedToCheckout());
+    }
+
+    @And("^(?:he|she) accepts the consent for shipping$")
+    public void theActorAcceptsTheConsentForShipping() {
+        Actor actor = credentials.getActor();
+        actor.wasAbleTo(AcceptTheConsentForShipping.acceptConsent());
+    }
+
+    @Then("^(?:he|she) should be in the payment page$")
+    public void theActorShouldBeInThePaymentPage() {
+        theActorInTheSpotlight().should(
+                seeThat("the application shows the payment step",
+                        Summary.PaymentSummaryPageIsPresent(), equalTo(true)));
+    }
+ 
+    
 
 
 
