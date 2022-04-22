@@ -13,7 +13,6 @@ public class NavigateTo implements Task {
     @Step("{0} go to authentication page")
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(HeaderMenu.navigateToSingIn());
-        actor.attemptsTo(HeaderMenu.navigateToSingIn());
     }
 
     public static NavigateTo SignInSection() {

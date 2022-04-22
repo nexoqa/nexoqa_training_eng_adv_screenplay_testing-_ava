@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="Check the correct behavior of the login features in the Ecommerce" skipped="0" tests="2" time="269.52" timestamp="2021-12-15 12:08:27"><testcase name="Login with as a registered client."/><testcase name="Login with as a not registered client."/></testsuite>

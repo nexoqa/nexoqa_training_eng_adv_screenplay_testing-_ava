@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="1" name="Check the correct behavior of the login features in the Ecommerce" skipped="0" tests="1" time="32.05" timestamp="2021-12-15 07:15:59"><testcase name="Select an item and go the checkout page."><failure message="Expected enabled element was not enabled" type="net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException">Expected enabled element was not enabled</failure><system-err>Expected enabled element was not enabled
+com.nexoqa.automationframework.interaction.ProceedToCheckout.performAs(ProceedToCheckout.java:13)
+com.nexoqa.automationframework.task.SelectItem.performAs(SelectItem.java:17)
+com.nexoqa.automationframework.steps.SingInSteps.theActorSelectAnItem(SingInSteps.java:86)
+cucumber.runner.Runner.runPickle(Runner.java:80)
+</system-err></testcase></testsuite>

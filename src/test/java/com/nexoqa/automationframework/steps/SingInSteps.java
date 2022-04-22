@@ -5,11 +5,10 @@ import com.nexoqa.automationframework.model.Credentials;
 import com.nexoqa.automationframework.model.builder.ClientBuilder;
 import com.nexoqa.automationframework.model.builder.CredentialsBuilder;
 import com.nexoqa.automationframework.model.enums.ErrorMessage;
+import com.nexoqa.automationframework.questions.ECommerce;
 import com.nexoqa.automationframework.questions.LogIn;
-import com.nexoqa.automationframework.task.GoTo;
-import com.nexoqa.automationframework.task.Login;
-import com.nexoqa.automationframework.task.NavigateTo;
-import com.nexoqa.automationframework.task.SignIn;
+import com.nexoqa.automationframework.questions.ShoppingCartSummaryPageSuccess;
+import com.nexoqa.automationframework.task.*;
 import cucumber.api.java.en.But;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -49,26 +48,12 @@ public class SingInSteps {
         }
     }
 
-    @Given("^that (Fran|Saul|Rafa) isn't registered in the ecommerce$")
-    public void theClientIsNotRegisteredAtThePlatform(String actorName) {
-        credentials = new CredentialsBuilder(theActorCalled(actorName)).build();
-        theActorInTheSpotlight().attemptsTo(
-                GoTo.eCommerce());
-    }
-
     @When("^(?:he|she) login with your credentials in the login page$")
     public void theClientFillWithYourCorrectCredentialsTheLogin() {
         theActorInTheSpotlight().attemptsTo(
                 GoTo.eCommerce(),
                 NavigateTo.SignInSection(),
                 Login.with(credentials)
-        );
-    }
-
-    @Then("^(?:he|she) should see a (AUTHENTICATION_FAILED) error message$")
-    public void theClientShouldAccessToTheCalculatorPriceApp(ErrorMessage errorMessage) {
-        theActorInTheSpotlight().should(
-                seeThat("the login show an error message", LogIn.isFailed(errorMessage.getMessageDescription()), equalTo(true))
         );
     }
 
@@ -79,5 +64,39 @@ public class SingInSteps {
         );
 
     }
+
+
+
+    @Then("^(?:he|she) should see a (AUTHENTICATION_FAILED) error message$")
+    public void theClientShouldAccessToTheCalculatorPriceApp(ErrorMessage errorMessage) {
+        theActorInTheSpotlight().should(
+                seeThat("the login show an error message", LogIn.isFailed(errorMessage.getMessageDescription()), equalTo(true))
+        );
+    }
+
+    @Given("^that (Fran|Saul|Rafa) isn't registered in the ecommerce$")
+    public void theClientIsNotRegisteredAtThePlatform(String actorName) {
+        credentials = new CredentialsBuilder(theActorCalled(actorName)).build();
+        theActorInTheSpotlight().attemptsTo(
+                GoTo.eCommerce());
+    }
+
+
+    @When("^(?:he|she) selects an item$")
+    public void theActorSelectAnItem() {
+        theActorInTheSpotlight().attemptsTo(
+                GoTo.eCommerce(),
+                SelectItem.SelectNewItem()
+        );
+    }
+
+    @Then("^(?:he|she) should be in the shopping cart summary page$")
+    public void theActorShouldBeInTheCheckOutPage() {
+        theActorInTheSpotlight().should(
+                seeThat("the application shows the shopping cart summary page", ECommerce.isShoppingCartSummaryPagePreset(), equalTo(true))
+        );
+    }
+
+
 
 }
